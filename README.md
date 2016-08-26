@@ -1,11 +1,12 @@
-﻿rpi_u-boot_jtag_bins
+rpi_u-boot_jtag_bins
 ====================
 u-boot binary for raspberry pi enabled jtag.
 
 概要
 ----
 Raspberry Pi Zero/2/3用の、コンパイル済みのu-bootバイナリー。  
-u-bootの初期起動時に、Raspberry PiのJTAGピンを有効にして立ち上がる。
+u-bootの初期起動時に、Raspberry PiのJTAGピンを有効にして立ち上がる。  
+u-boot起動後、JTAGデバッガ経由でプログラムのダウンロードや実行する事も可能。又、JTAG機能は使わなくてもu-bootからプログラムのロードや実行もできる。
 
 詳しくは、下記の関連ブログを参照
 
@@ -15,18 +16,20 @@ u-bootの初期起動時に、Raspberry PiのJTAGピンを有効にして立ち�
 
 使い方
 ------
-FATでフォーマット済みのマイクロSDカードに、機種に合わせた下記４つのファイルをSDカードのルートに書き込む。そのSDカードをRaspberry Piにセットし電源起動すると、u-bootが起動する。シリアルコンソールに起動メッセージを表示してカウントダウンするので、何かキーを押すとコマンド入力できる。
+FATでフォーマット済みのマイクロSDカードに、機種に合わせた下記４つのファイルをSDカードのルートに書き込む。そのSDカードをRaspberry Piにセットし電源起動すると、u-bootが起動する。シリアルコンソールに起動メッセージを表示してカウントダウンするので、何かキーを押すとコマンド入力できる。"help"と入力すると使えるコマンドの一覧が表示される。
 
-1. `bootcode.bin`    bootフォルダからコピー
-2. `start.elf`       bootフォルダからコピー
-3. `u-boot.bin`      各機種別フォルダからコピー
-4. `config.txt`      各機種別フォルダからコピー
+1. `bootcode.bin`    boot.zip から解凍しコピー
+2. `start.elf`       boot.zip から解凍しコピー
+3. `u-boot.bin`      機種別.zip から解凍しコピー
+4. `config.txt`      機種別.zip から解凍しコピー
 
-|機種別フォルダ|対応機種         |備考            |
+|機種別ファイル|対応機種         |備考            |
 |:-------------|:----------------|:---------------|
 |rpi           |Raspberry Pi Zero|Pi1では未確認   |
 |rpi_2         |Raspberry Pi 2   |                |
 |rpi_3_32b     |Raspberry Pi 3   |32bitモード     |
+
+※各ファイルはzip圧縮してあるので解凍して利用する。
 
 JTAGピン割り当て
 ----------------
@@ -42,21 +45,27 @@ Raspberry PiコネクタのJTAG信号の割り当ては下記
 
 bootファイル入手先
 ------------------
-上記、1)と2)のファイルは、下記URLから入手（2016/08/25）  
+上記、1)と2)のファイルは、下記URLから入手（2016/08/11版）  
 <https://github.com/raspberrypi/firmware/tree/master/boot>
 
 u-bootソースファイル入手先
 --------------------------
-下記URLから入手し、｢GNU ARM Embedded Toolchain｣でコンパイル(2016/08/16版)  
+3)のファイルは、下記URLから入手(2016/08/16版)し、｢[GNU ARM Embedded Toolchain](https://launchpad.net/gcc-arm-embedded)｣でコンパイル  
 <git://git.denx.de/u-boot.git>
 
-JTAG有効化で修正したソースの箇所は、関連ブログの記事を参照。
+JTAG有効化で変更したソースの箇所は、関連ブログの記事を参照。
 
 作者関連サイト
 --------------
-* <http://jr4qpv.hatenablog.com/>
-* <http://jr4qpv.my.coocan.jp/>
+* [Around the modern stone age.](http://jr4qpv.hatenablog.com/)
+* [JR4QPV Yoko's Library](http://jr4qpv.my.coocan.jp/)
+
+免責
+----
+本プログラムの使用にあたっては、使用者自身の責任で行ってください。作者は何の保証もしないし、本プログラムを利用した上で生じたいかなる障害や損害についても、作者は責任を負いません。
+
 
 履歴
 ----
 * 2016/08/25 公開(By JR4QPV)
+* 2016/08/26 ファイルはzip圧縮して公開するように変更
